@@ -1,4 +1,12 @@
 package com.api.gestaodelucro.peca;
 
-public interface PecaRepositorio {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface PecaRepositorio extends JpaRepository<Peca, Long> {
+
+    List<Peca> findAllByIdPeca(Long idPeca);
 }
