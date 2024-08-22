@@ -6,4 +6,5 @@ INSERT INTO tab_venda (id_produto, id_peca, valor_de_venda, data_atualizacao) VA
 INSERT INTO tab_venda (id_produto, id_peca, valor_de_venda, data_atualizacao) VALUES (6, 1, 350.00, CURRENT_DATE);
 INSERT INTO tab_venda (id_produto, id_peca, valor_de_venda, data_atualizacao) VALUES (7, 1, 400.00, CURRENT_DATE);
 INSERT INTO tab_venda (id_produto, id_peca, valor_de_venda, data_atualizacao) VALUES (8, 1, 450.00, CURRENT_DATE);
+INSERT INTO tab_venda (id_produto, id_peca, valor_de_venda, data_atualizacao) VALUES (9, 1, 00.00, CURRENT_DATE);
 

@@ -2,7 +2,6 @@ package com.api.gestaodelucro.peca;
 
 import com.api.gestaodelucro.calculo.CalculoServico;
 import com.api.gestaodelucro.excecao.EntidadeNaoEncontradaExcecao;
-import com.api.gestaodelucro.produto.Produto;
 import com.api.gestaodelucro.produto.ProdutoServico;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -25,18 +24,11 @@ public class PecaServico {
         Peca peca = new Peca();
         BeanUtils.copyProperties(pecaDTO, peca);
 
-        List<Produto> produtos = pecaDTO.listaDeProdutos().stream().map(
-                produtoDTO -> {
-                    Produto produto = new Produto();
-                    BeanUtils.copyProperties(produtoDTO, produto);
-                    calculoServico.calcularValoresDoProduto(produto, pecaDTO);
+        pecaDTO.listaDeProdutos().add(produtoServico.getProdutoDesossa(pecaDTO));
 
-                    return produto;
-                }).toList();
-
-        produtos.add(produtoServico.getProdutoDesossa(pecaDTO));
-
-        produtos.forEach(peca::addProduto);
+        pecaDTO.listaDeProdutos().forEach(
+                produto -> calculoServico.calcularValoresDoProduto(produto, pecaDTO)
+        );
 
         return salvarPeca(peca);
     }
@@ -56,9 +48,6 @@ public class PecaServico {
 
     public PecaDTO salvarPeca(Peca peca){
         Peca pecaSalva =  pecaRepositorio.save(peca);
-        PecaDTO pecaDTO = new PecaDTO();
-        BeanUtils.copyProperties(pecaSalva, pecaDTO);
-
-        return pecaDTO;
+        return new PecaDTO(pecaSalva);
     }
 }

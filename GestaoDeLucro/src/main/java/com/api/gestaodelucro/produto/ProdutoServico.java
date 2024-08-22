@@ -14,12 +14,9 @@ public class ProdutoServico {
     public Produto getProdutoDesossa(PecaDTO pecaDTO){
 
         Produto produto = new Produto();
-        produto.setIdProduto(10L);
+        produto.setIdProduto(9L);
         produto.setQuantidade(calculoServico.calcularPercaDesossa(
                 pecaDTO.listaDeProdutos(), pecaDTO.peso()
-        ));
-        produto.setPercentual(calculoServico.calculaPercentual(
-                produto.getQuantidade(), pecaDTO.peso()
         ));
 
         return produto;
