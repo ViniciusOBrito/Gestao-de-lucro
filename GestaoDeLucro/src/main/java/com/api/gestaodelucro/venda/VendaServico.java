@@ -1,10 +1,12 @@
 package com.api.gestaodelucro.venda;
 
+import com.api.gestaodelucro.excecao.EntidadeNaoEncontradaExcecao;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class VendaServico {
@@ -15,9 +17,11 @@ public class VendaServico {
         this.vendaRepositorio = vendaRepositorio;
     }
 
-    public VendaDTO salvarVenda(VendaDTO vendaDTO){
+    public VendaDTO atualizarVenda(VendaDTO vendaDTO){
 
-        Venda venda = new Venda();
+        Venda venda = vendaRepositorio.findByIdPecaAndIdProduto(vendaDTO.idPeca(), vendaDTO.idProduto())
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcecao("Venda nao encontrada."));
+
         BeanUtils.copyProperties(vendaDTO, venda);
         venda.setDataAtualizacao(new Date());
 
@@ -26,7 +30,17 @@ public class VendaServico {
         return vendaDTO;
     }
 
-    public BigDecimal buscaVendaPorIdProdutoEPeca(Long idPeca, Long idProduto){
-        return vendaRepositorio.findByIdPecaAndIdProdutoOrderByDataAtualizacaoDesc(idPeca, idProduto).getValorDeVenda();
+    public BigDecimal buscaValorVendaPorIdProdutoEPeca(Long idPeca, Long idProduto){
+        Venda  venda = vendaRepositorio.findByIdPecaAndIdProduto(idPeca, idProduto)
+                .orElseThrow(() -> new EntidadeNaoEncontradaExcecao("Venda nao encontrada."));
+
+        return venda.getValorDeVenda();
+    }
+
+    public List<VendaDTO> consultarVendas(Long idPeca){
+        return vendaRepositorio.findAllByIdPeca(idPeca)
+                .stream()
+                .map(VendaDTO::new)
+                .toList();
     }
 }

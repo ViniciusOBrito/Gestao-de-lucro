@@ -19,7 +19,7 @@ public class CalculoServico {
     public void calcularValoresDoProduto(Produto produto, PecaDTO pecaDTO){
         BigDecimal percentual = this.calculaPercentual(produto.getQuantidade(), pecaDTO.peso());
         BigDecimal custo = this.calculaCustoProduto(pecaDTO.listaDeProdutos(), pecaDTO.peso());
-        BigDecimal venda = vendaServico.buscaVendaPorIdProdutoEPeca(pecaDTO.idPeca(), produto.getIdProduto());
+        BigDecimal venda = vendaServico.buscaValorVendaPorIdProdutoEPeca(pecaDTO.idPeca(), produto.getIdProduto());
         BigDecimal total = this.calculaVendaTotalProduto(venda, produto.getQuantidade());
         produto.setPercentual(percentual);
         produto.setCusto(custo);

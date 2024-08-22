@@ -9,17 +9,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-
-@Entity
-@Table(name = "tab_usuario")
 @Getter
 @Setter
+@Entity
+@Table(name = "tab_usuario")
 public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false ,unique = true)
     private String login;
 
     private String senha;

@@ -1,12 +1,13 @@
 package com.api.gestaodelucro.peca;
 
 import com.api.gestaodelucro.produto.Produto;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@Schema(name = "Peca DTO", description = "DTO para cadastrar um peca")
 public record PecaDTO(
         Long id,
         @NotNull(message = "ID da peça não pode ser nulo.") Long idPeca,
