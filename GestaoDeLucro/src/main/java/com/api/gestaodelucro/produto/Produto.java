@@ -2,6 +2,7 @@ package com.api.gestaodelucro.produto;
 
 import com.api.gestaodelucro.peca.Peca;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "peca_id")
     @JsonBackReference
+    @JsonIgnore
     private Peca peca;
     private Long idProduto;
     private BigDecimal quantidade;
